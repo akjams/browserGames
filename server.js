@@ -85,7 +85,6 @@ let gameState = {
         let currBullet = this.bullets[bulletKey];
         // Handle bullet hit wall.
         if (isCircleOutsideWall(currBullet)) {
-          console.log('bullet outside wall');
           delete this.bullets[bulletKey];
         }        
       }
@@ -97,7 +96,6 @@ let gameState = {
         let currPlayer = this.players[playerKey];    
         // Handle hero hit wall.
         if (isCircleOutsideWall(currPlayer.position)) {
-          console.log('player outside wall');
           delete this.players[playerKey];
         }
       }
