@@ -32,11 +32,10 @@ function setup() {
   createCanvas(SCREEN_WIDTH, SCREEN_HEIGHT);
   background(230);
 
-  socket = io.connect('http://localhost:3000');
+  socket = io.connect('http://localhost:80');
   socket.emit('newPlayer', {});
 
   socket.on('gameState', receivedState => {
-    //console.log('received new gameState: ', receivedState);
     currentGameState = receivedState;
   });
 }
@@ -88,7 +87,7 @@ function keyAction(keyString, isDown) {
 }
 
 function mousePressed() {
-  console.log(currentGameState);
+
   mouseAction(true);
 }
 
