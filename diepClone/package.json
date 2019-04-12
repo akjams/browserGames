@@ -4,7 +4,9 @@
   "description": "### Technologies: *   HTML5 Canvas *   matter.js *   TypeScript",
   "main": "server.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm client/*.js && rm server/*.js"
+
   },
   "author": "",
   "license": "ISC",
