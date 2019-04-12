@@ -5,18 +5,26 @@
   "main": "server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "rm client/*.js && rm server/*.js"
-
+    "start": "npm run build && node server/server.js",
+    "build": "npm run buildClient && npm run buildServer",
+    "buildClient": "webpack-cli",
+    "buildServer": "tsc server/server.ts",
+    "clean": "rm client/*.js && rm server/*.js && rm shared/*.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/node": "^11.13.0",
     "express": "^4.16.4",
     "matter-js": "^0.14.2",
     "nodemon": "^1.18.10",
-    "socket.io": "^2.2.0",
+    "socket.io": "^2.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^11.13.4",
+    "ts-loader": "^5.3.3",
     "ts-node": "^8.0.3",
-    "typescript": "^3.4.2"
+    "typescript": "^3.4.3",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
   }
 }
