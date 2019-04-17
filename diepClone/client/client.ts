@@ -1,12 +1,12 @@
 'use strict';
 
-import { GameDriver } from './GameDriver';
+import { GameClient } from './GameClient';
 
-let gameDriver: GameDriver = new GameDriver();
+let gameClient: GameClient = new GameClient();
 
 let drawForever = () => {
   window.requestAnimationFrame(drawForever);
-  gameDriver.gameLoop();
+  gameClient.gameLoop();
 }
 
 drawForever();
