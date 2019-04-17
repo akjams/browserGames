@@ -17,6 +17,11 @@ We build the client with webpack and ts-loader so we can use modules. Apparently
 *   js files are ignored by .gitignore
 
 ### TODO
+*   Shooting mechanics, Bullet sprites.
+*   Checkered background.
+*   Player image + turret that points at mouse.
+*   Translate? canvas so player is in middle of screen.
+*   Use Matter.js.
 *   get a linter
 *   import socket.io-client cleanly
 *   `npm run watchClient` seems to be watching the server.

@@ -5,13 +5,13 @@
   "main": "server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run build && node server/server.js",
+    "start": "npm run build && node server/bin/server/server.js",
     "build": "npm run buildClient && npm run buildServer",
     "buildClient": "webpack-cli",
     "watchClient": "webpack-cli --watch --display-modules",
-    "buildServer": "tsc server/server.ts",
-    "watchServer": "tsc-watch server/server.ts --onSuccess 'node server/server.js'",
-    "clean": "rm client/*.js && rm server/*.js && rm shared/*.js"
+    "buildServer": "tsc server/server.ts --outDir server/bin",
+    "watchServer": "tsc-watch server/server.ts --outDir server/bin --onSuccess 'node server/bin/server/server.js'",
+    "clean": "rm client/*.js; rm server/*.js; rm shared/*.js; rm -rf server/bin/*"
   },
   "author": "",
   "license": "ISC",
