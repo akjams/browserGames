@@ -21,8 +21,14 @@ We build the client with webpack and ts-loader so we can use modules. Apparently
 *   Checkered background.
 *   Player image + turret that points at mouse.
 *   Translate? canvas so player is in middle of screen.
+*   Minimap
 *   Use Matter.js.
 *   get a linter
 *   import socket.io-client cleanly
 *   `npm run watchClient` seems to be watching the server.
 *   Fix the `Serializable` interface and how we do serialization. `deserialize()` should probably be a static method that returns a new object. Check for more automated solution for deep serialization.
+
+
+#### Bugs
+*   Sometimes new players not controllable.
+

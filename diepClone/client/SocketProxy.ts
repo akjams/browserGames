@@ -17,6 +17,10 @@ export class SocketProxy {
     this.socket.emit('newPlayer', {});
   }
 
+  getSocketId(): string {
+    return this.socket.id;
+  }
+
   publishHeroActions(heroActions: HeroActions): void {
     this.socket.emit('heroActions', heroActions); 
   }
@@ -24,6 +28,4 @@ export class SocketProxy {
   subscribeToGameState(callback): void {
     this.socket.on('gameState', callback);
   }
-
-
 }

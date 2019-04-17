@@ -10,12 +10,16 @@ export class ServerSocketProxy {
   constructor(
       expressServer,
       newPlayerCallback: (id: string) => void,
+      disconnectCallback: (id: string) => void,
       heroActionsCallback: (id: string, ha: HeroActions) => void) {
     
     this.io = socketIo(expressServer);
     this.io.sockets.on('connection', (socket) => {
       socket.on('newPlayer', () => {
         newPlayerCallback(socket.id);
+      });
+      socket.on('disconnect', () => {
+        disconnectCallback(socket.id);
       });
       socket.on('heroActions', (jsonHeroActions) => {
         let heroActions: HeroActions = new HeroActions();
