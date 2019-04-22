@@ -33,7 +33,8 @@ export class GameServer {
     let createdPlayer: Player = new Player(
         playerId, 
         Utils.randInt(0, Constants.CANVAS_WIDTH),
-        Utils.randInt(0, Constants.CANVAS_HEIGHT));
+        Utils.randInt(0, Constants.CANVAS_HEIGHT),
+        this.gameState);
     this.gameState.addPlayer(createdPlayer);
   }
 
