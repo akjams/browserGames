@@ -1,16 +1,32 @@
 import { Sprite } from './Sprite';
 import { HeroActions } from './HeroActions';
 import { Constants } from '../shared/Constants';
+import { GameState } from '../shared/GameState';
+import { Bullet } from './Bullet';
+import { Utils } from './Utils';
+
 export class Player implements Sprite {
   id: string;
   x: number;
   y: number;
   heroActions: HeroActions;
+  gameState: GameState;
 
-  constructor(id: string, x: number, y: number) {
+  experience: number = 0;
+  currHp: number = 20;
+  maxHp: number = 20;
+  hpRegen: number = 0.01;
+  maxReloadTime: number = 60; // Ticks to reload.
+  currReloadTime: number = 0;
+  bulletDamage: number = 1;
+  bulletSpeed: number = 1;
+  movementSpeed: number = 1;
+
+  constructor(id: string, x: number, y: number, gameState?: GameState) {
     this.id = id;
     this.x = x;
     this.y = y;
+    this.gameState = gameState;
     this.heroActions = new HeroActions();
   }
 
@@ -31,6 +47,14 @@ export class Player implements Sprite {
     if (this.heroActions.d) { xvel += Constants.PLAYER_SPEED; }
     this.x += xvel;
     this.y += yvel;
+
+    // Shoot if we should.
+    this.currReloadTime--;
+    if (this.heroActions.mouseDown && this.currReloadTime <= 0) {
+      this.currReloadTime = this.maxReloadTime;
+      let bullet: Bullet = Bullet.fromShooter(this, xvel, yvel);
+      this.gameState.addBullet(bullet);
+    }
   }
 
   draw(ctx: CanvasRenderingContext2D) {
