@@ -10,15 +10,13 @@ export class Bullet implements Sprite {
   y: number;
   xvel: number;
   yvel: number;
-  theta: number; // radians.
-  speed: number;
 
-  constructor(id: string, x: number, y: number, theta: number, speed: number) {
+  constructor(id: string, x: number, y: number, xvel: number, yvel: number) {
     this.id = id;
     this.x = x;
     this.y = y;
-    this.theta = theta;
-    this.speed = speed;
+    this.xvel = xvel;
+    this.yvel = yvel;
   }
 
   static fromShooter(shooter: Player,
@@ -26,23 +24,25 @@ export class Bullet implements Sprite {
 		let dx = (Constants.CANVAS_WIDTH / 2 - shooter.heroActions.mouseX);
 		let dy = -(Constants.CANVAS_HEIGHT / 2 - shooter.heroActions.mouseY);
 	  let theta = Math.atan2(dx, dy) + Math.PI/2; // radians in range (-PI, PI].
-    let speed = shooter.bulletSpeed
-        + Math.sqrt(shooterXvel * shooterXvel + shooterYvel * shooterYvel);
-    
+    let shotXvel = Math.cos(theta) * shooter.bulletSpeed;
+    let shotYvel = Math.sin(theta) * shooter.bulletSpeed;
+
+    let combinedXvel = shotXvel + shooterXvel;
+    let combinedYvel = shotYvel + shooterYvel;
     
     let bullet: Bullet = new Bullet(
       Utils.randomId(),
       shooter.x,
       shooter.y,
-      theta,
-      speed);
+      combinedXvel,
+      combinedYvel);
       bullet.shooter = shooter;
       return bullet;
   }
 
 	tick() {
-		this.x += this.speed * Math.cos(this.theta);
-		this.y += this.speed * Math.sin(this.theta);
+		this.x += this.xvel;
+		this.y += this.yvel;
 	}
 
 	draw(ctx: CanvasRenderingContext2D) { 
@@ -61,7 +61,7 @@ export class Bullet implements Sprite {
 	}
 
 	static fromJson(jsonObj): Bullet  {
-		return new Bullet(jsonObj.id, jsonObj.x, jsonObj.y, jsonObj.theta, jsonObj.speed);
+		return new Bullet(jsonObj.id, jsonObj.x, jsonObj.y, jsonObj.xvel, jsonObj.yvel);
 	}
 
 	// Client side does not need a reference to shooter.
@@ -70,9 +70,9 @@ export class Bullet implements Sprite {
 			id: this.id,
 			x: this.x,
 			y: this.y,
-      speed: this.speed,
-      theta: this.theta
-		}
+		  xvel: this.xvel,
+      yvel: this.yvel
+    }
 	}
   
 }
